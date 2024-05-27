@@ -44,8 +44,10 @@ function M.remove_heading_numbers()
 
 	-- 各行を解析し、ヘッダから番号を削除
 	for i, line in ipairs(lines) do
-		-- ヘッダ行の検出と番号付きパターンの削除
-		line = line:gsub("^(#+)%s*%d+(%.%d+)*%.%s+", "%1 ")
+		repeat
+			local old_line = line
+			line = line:gsub("^(#+)%s*%d+%.%s*", "%1 ")
+		until line == old_line -- 変更がなくなるまで繰り返し
 		lines[i] = line
 	end
 
